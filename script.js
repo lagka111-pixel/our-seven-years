@@ -23,8 +23,8 @@
      （注意：這只能擋「打開網址的訪客」，公開 repo 內的檔案
        仍然可被直接瀏覽，並非真正的資安防護。）
      ------------------------------------------------------------ */
-  const LOCK_HASH = "dff7d1ad24e683a77f6713e1bb10770ff223ed4f5b17edc0df3ddd7207c8475d";
-  const LOCK_HASH_FALLBACK = 2088260109; // djb2，給不支援 crypto.subtle 的環境用
+  const LOCK_HASH = "46437ab18a6657040b4535297ff247b20c535c02263713f88b6a9e17484f1f3f";
+  const LOCK_HASH_FALLBACK = 2088290667; // djb2，給不支援 crypto.subtle 的環境用
 
   const lock = document.getElementById("lock");
   const lockForm = document.getElementById("lockForm");
