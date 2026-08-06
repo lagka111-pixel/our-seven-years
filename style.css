@@ -39,7 +39,7 @@ body {
 .bg {
   position: fixed;
   inset: 0;
-  background: url("背景/背景2.jpg") center / cover no-repeat;
+  background: url("背景/背景2.webp") center / cover no-repeat;
   z-index: -3;
   transform: scale(1.03); /* 預留邊緣，避免模糊時露白 */
 }
