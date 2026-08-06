@@ -1,0 +1,808 @@
+/* ============================================================
+   求婚 Web App — style.css
+   浪漫 × 吉卜力 × Glassmorphism × Apple 式絲滑
+   ============================================================ */
+
+:root {
+  --font-script: "Great Vibes", cursive;
+  --font-body: "Zen Maru Gothic", "Klee One", "Microsoft JhengHei", sans-serif;
+
+  --warm-white: rgba(255, 253, 248, 0.5);
+  --ink: #4a3f35;
+  --ink-soft: #6b5d4f;
+  --rose: #d46a84;
+  --rose-deep: #b94d68;
+  --gold: #c9a86a;
+
+  --card-radius: 28px;
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1); /* Apple 式回彈曲線 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* hidden 屬性必須贏過任何 display 設定 */
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------
+   背景：吉卜力風圖片 + 柔光罩
+   ------------------------------------------------------------ */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url("背景/背景2.jpg") center / cover no-repeat;
+  z-index: -3;
+  transform: scale(1.03); /* 預留邊緣，避免模糊時露白 */
+}
+
+.bg-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 250, 240, 0.12) 0%,
+    rgba(255, 245, 235, 0.05) 50%,
+    rgba(255, 240, 235, 0.18) 100%
+  );
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   漂浮光點
+   ------------------------------------------------------------ */
+#sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  bottom: -4vh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 250, 220, 0.95) 0%, rgba(255, 235, 180, 0.35) 55%, transparent 75%);
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(0) translateX(0) scale(0.6); opacity: 0; }
+  12%  { opacity: 0.9; }
+  60%  { opacity: 0.7; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 30px)) scale(1.1); opacity: 0; }
+}
+
+/* ------------------------------------------------------------
+   音樂開關
+   ------------------------------------------------------------ */
+.music-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 60;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 253, 248, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ink);
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(90, 60, 40, 0.18);
+  transition: transform 0.35s var(--ease-smooth), background 0.3s;
+}
+.music-toggle:hover { transform: scale(1.1) rotate(8deg); }
+.music-toggle.muted { opacity: 0.55; text-decoration: line-through; }
+
+/* ============================================================
+   ⓪ 密碼鎖
+   ============================================================ */
+.lock {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(255, 250, 242, 0.55), rgba(255, 240, 232, 0.5));
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  transition: opacity 1s var(--ease-smooth), visibility 1s;
+}
+.lock.fade-out { opacity: 0; visibility: hidden; }
+
+.lock-card {
+  width: min(430px, 92vw);
+  padding: clamp(30px, 6vw, 48px);
+  border-radius: 30px;
+  background: rgba(255, 253, 248, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 30px 70px rgba(90, 60, 40, 0.25);
+  text-align: center;
+  animation: introIn 1.2s var(--ease-smooth) both;
+}
+
+.lock-script {
+  font-family: var(--font-script);
+  font-size: 2.4rem;
+  color: var(--rose-deep);
+  line-height: 1.1;
+}
+
+.lock-title {
+  margin-top: 0.7rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+}
+
+.lock-hint {
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.lock-form {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.lock-form input {
+  width: 150px;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  letter-spacing: 0.5em;
+  text-align: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(185, 77, 104, 0.3);
+  border-radius: 14px;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.lock-form input:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 4px rgba(212, 106, 132, 0.15);
+}
+
+.lock-form button {
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: linear-gradient(135deg, #e58ba1, var(--rose-deep));
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(185, 77, 104, 0.35);
+  transition: transform 0.3s var(--ease-smooth);
+}
+.lock-form button:hover { transform: scale(1.06); }
+
+.lock-error {
+  margin-top: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--rose-deep);
+}
+
+.lock-card.shake { animation: lockShake 0.5s; }
+
+@keyframes lockShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-7px); }
+  80% { transform: translateX(7px); }
+}
+
+/* ============================================================
+   ① 首頁：信封
+   ============================================================ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(255, 250, 242, 0.35), rgba(255, 244, 235, 0.25));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 1.2s var(--ease-smooth), visibility 1.2s;
+}
+.intro.fade-out { opacity: 0; visibility: hidden; }
+
+.intro-inner { text-align: center; animation: introIn 1.4s var(--ease-smooth) both; }
+
+@keyframes introIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.intro-title {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 5rem);
+  color: var(--rose-deep);
+  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.8);
+}
+
+.intro-sub {
+  margin-top: 0.4rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.35em;
+  color: var(--ink-soft);
+}
+
+.intro-hint {
+  margin-top: 2.2rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  animation: hintPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+/* --- 信封本體 --- */
+.envelope {
+  position: relative;
+  display: block;
+  width: 260px;
+  height: 175px;
+  margin: 3rem auto 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 18px 30px rgba(120, 70, 50, 0.28));
+  transition: transform 0.5s var(--ease-smooth);
+  animation: envFloat 3.4s ease-in-out infinite;
+}
+.envelope:hover { transform: scale(1.06); }
+
+@keyframes envFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -10px; }
+}
+
+.envelope span { position: absolute; display: block; }
+
+.env-back {
+  inset: 0;
+  background: linear-gradient(160deg, #f6e5d3, #eed3bd);
+  border-radius: 10px;
+}
+
+.env-letter {
+  left: 12px;
+  right: 12px;
+  top: 10px;
+  height: 140px;
+  background: #fffdf8;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.9s var(--ease-smooth) 0.35s;
+}
+.env-letter-heart { color: var(--rose); font-size: 2rem; position: static !important; }
+
+.env-flap {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 92px solid #f0d9c2;
+  transform-origin: top center;
+  transition: transform 0.7s var(--ease-smooth);
+  z-index: 3;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.06));
+}
+
+.env-front {
+  inset: 0;
+  border-radius: 10px;
+  background:
+    linear-gradient(115deg, transparent 49%, rgba(0,0,0,0.045) 50%, transparent 51%),
+    linear-gradient(245deg, transparent 49%, rgba(0,0,0,0.045) 50%, transparent 51%),
+    linear-gradient(200deg, #f9ecdc 0%, #f3ddc6 100%);
+  clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+
+.env-seal {
+  left: 50%;
+  top: 58%;
+  translate: -50% -50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e2879c, var(--rose-deep));
+  color: #fff8f4;
+  font-size: 1.4rem;
+  line-height: 52px;
+  text-align: center;
+  z-index: 4;
+  box-shadow: 0 4px 12px rgba(185, 77, 104, 0.5);
+  transition: transform 0.5s var(--ease-smooth), opacity 0.5s;
+}
+
+/* 開啟動畫 */
+.envelope.open { animation: none; }
+.envelope.open .env-flap { transform: rotateX(180deg); }
+.envelope.open .env-seal { transform: scale(0); opacity: 0; }
+.envelope.open .env-letter { transform: translateY(-90px); }
+
+/* ============================================================
+   ② 回憶時間軸
+   ============================================================ */
+.story {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px) 60px;
+}
+
+/* --- 開場 hero --- */
+.hero {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-script {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  color: var(--rose-deep);
+  text-shadow: 0 2px 16px rgba(255,255,255,0.85);
+}
+
+.hero-title {
+  margin-top: 0.6rem;
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  text-shadow: 0 2px 14px rgba(255,255,255,0.7);
+}
+
+.hero-sub {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+}
+
+.hero-arrow {
+  margin-top: 3.2rem;
+  font-size: 1.6rem;
+  color: var(--ink-soft);
+  animation: arrowBob 1.8s ease-in-out infinite;
+}
+
+@keyframes arrowBob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(10px); opacity: 1; }
+}
+
+/* --- 年份毛玻璃卡片 --- */
+.year-card {
+  margin: clamp(56px, 10vh, 110px) 0;
+  padding: clamp(28px, 5vw, 52px);
+  border-radius: var(--card-radius);
+  background: var(--warm-white);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 24px 60px rgba(90, 60, 40, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.year-head {
+  position: relative;
+  margin-bottom: 1.6rem;
+}
+
+.year-num {
+  position: absolute;
+  right: 0;
+  top: -0.4rem;
+  font-family: var(--font-script);
+  font-size: 3.4rem;
+  color: rgba(201, 168, 106, 0.4);
+  line-height: 1;
+  user-select: none;
+}
+
+.year-script {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 2.1rem;
+  color: var(--rose);
+  line-height: 1.1;
+}
+
+.year-title {
+  margin-top: 0.35rem;
+  font-size: clamp(1.35rem, 3.4vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+/* --- 情話文字區：呼吸感排版 --- */
+.love-words p {
+  font-size: clamp(1rem, 2.4vw, 1.08rem);
+  line-height: 2.1;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 1.15em;
+  text-align: justify;
+}
+.love-words p:last-child { margin-bottom: 0; }
+
+/* ------------------------------------------------------------
+   照片輪播（scroll-snap，絲滑滑動）
+   ------------------------------------------------------------ */
+.carousel {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.car-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: 18px;
+  scrollbar-width: none;            /* Firefox 隱藏卷軸 */
+}
+.car-track::-webkit-scrollbar { display: none; }
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.slide img {
+  width: 100%;
+  height: clamp(280px, 52vw, 460px);
+  object-fit: cover;
+  display: block;
+  border-radius: 18px;
+  cursor: zoom-in;
+  transition: transform 0.8s var(--ease-smooth);
+}
+.slide img:hover { transform: scale(1.025); }
+
+.car-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 253, 248, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(90, 60, 40, 0.22);
+  transition: transform 0.3s var(--ease-smooth), background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+.car-btn:hover { background: #fffdf8; transform: translateY(-50%) scale(1.12); }
+.car-btn.prev { left: 12px; }
+.car-btn.next { right: 12px; }
+
+.car-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.car-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(74, 63, 53, 0.25);
+  cursor: pointer;
+  transition: all 0.35s var(--ease-smooth);
+}
+.car-dots .dot.active {
+  background: var(--rose);
+  width: 22px;
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------
+   捲動浮現動畫（Intersection Observer 配合）
+   ------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(46px);
+  transition:
+    opacity 1s var(--ease-smooth),
+    transform 1s var(--ease-smooth);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   ③ 求婚大哉問
+   ============================================================ */
+.proposal {
+  margin: clamp(80px, 16vh, 160px) 0 40px;
+  padding: clamp(40px, 7vw, 70px) clamp(24px, 5vw, 56px);
+  border-radius: var(--card-radius);
+  background: rgba(255, 253, 248, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 30px 70px rgba(90, 60, 40, 0.2);
+  text-align: center;
+}
+
+.proposal-script {
+  font-family: var(--font-script);
+  font-size: 2.6rem;
+  color: var(--gold);
+}
+
+.proposal-question {
+  margin-top: 1.4rem;
+  font-size: clamp(1.3rem, 3.6vw, 1.8rem);
+  font-weight: 700;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.proposal-ask {
+  margin-top: 1.2rem;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--rose-deep);
+}
+
+.proposal-btns {
+  margin-top: 2.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.btn-yes, .btn-no {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.btn-yes {
+  color: #fff;
+  background: linear-gradient(135deg, #e58ba1, var(--rose-deep));
+  box-shadow: 0 12px 28px rgba(185, 77, 104, 0.45);
+  transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s;
+  animation: yesGlow 2.4s ease-in-out infinite;
+}
+.btn-yes:hover {
+  transform: scale(1.1);
+  box-shadow: 0 16px 36px rgba(185, 77, 104, 0.55);
+}
+
+@keyframes yesGlow {
+  0%, 100% { box-shadow: 0 12px 28px rgba(185, 77, 104, 0.45); }
+  50%      { box-shadow: 0 12px 40px rgba(185, 77, 104, 0.75); }
+}
+
+.btn-no {
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 8px 20px rgba(90, 60, 40, 0.15);
+  transition: left 0.25s ease-out, top 0.25s ease-out, transform 0.25s;
+}
+
+/* 逃跑後改為 fixed 定位（JS 控制 left/top） */
+.btn-no.runaway { position: fixed; z-index: 70; margin: 0; }
+
+/* ------------------------------------------------------------
+   頁尾
+   ------------------------------------------------------------ */
+.story-footer {
+  text-align: center;
+  padding: 30px 0 20px;
+}
+.footer-script {
+  font-family: var(--font-script);
+  font-size: 1.8rem;
+  color: rgba(74, 63, 53, 0.55);
+}
+
+/* ============================================================
+   ④ 最終告白字卡
+   ============================================================ */
+.final-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(60, 40, 35, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-smooth);
+}
+.final-modal.show { opacity: 1; }
+
+.final-card {
+  max-width: 560px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: rgba(255, 253, 248, 0.92);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 40px 90px rgba(50, 25, 20, 0.45);
+  padding: clamp(24px, 5vw, 44px);
+  text-align: center;
+  transform: translateY(36px) scale(0.96);
+  transition: transform 0.9s var(--ease-smooth);
+}
+.final-modal.show .final-card { transform: translateY(0) scale(1); }
+
+.final-img {
+  width: 100%;
+  max-height: 46vh;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 14px 34px rgba(90, 60, 40, 0.3);
+}
+
+.final-script {
+  margin-top: 1.4rem;
+  font-family: var(--font-script);
+  font-size: 2.8rem;
+  color: var(--rose-deep);
+  line-height: 1.1;
+}
+
+.final-title {
+  margin-top: 0.8rem;
+  font-size: clamp(1.25rem, 3.4vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+.final-text {
+  margin-top: 1.1rem;
+  font-size: 1.02rem;
+  line-height: 2.1;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.final-sign {
+  margin-top: 1.3rem;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  color: var(--rose);
+}
+
+/* 回顧按鈕：回到回憶時間軸 */
+.btn-review {
+  margin-top: 1.8rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  padding: 12px 32px;
+  border: 1px solid rgba(185, 77, 104, 0.45);
+  border-radius: 999px;
+  color: var(--rose-deep);
+  background: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-smooth), background 0.3s, box-shadow 0.35s;
+}
+.btn-review:hover {
+  transform: scale(1.06);
+  background: #fffdf8;
+  box-shadow: 0 10px 24px rgba(185, 77, 104, 0.28);
+}
+
+/* ------------------------------------------------------------
+   燈箱（點照片放大）
+   ------------------------------------------------------------ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 20, 18, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-smooth);
+}
+.lightbox.show { opacity: 1; }
+
+.lightbox img {
+  max-width: 94vw;
+  max-height: 92vh;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------------------------------------------------
+   小螢幕微調
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+  .year-num { font-size: 2.4rem; }
+  .car-btn { width: 36px; height: 36px; font-size: 1.25rem; }
+  .envelope { transform: scale(0.85); }
+  .envelope:hover { transform: scale(0.88); }
+}
+
+/* 尊重減少動態偏好 */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}

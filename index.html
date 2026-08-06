@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To My Dearest 妮妮</title>
+
+  <!-- Google Fonts：英文花體 Great Vibes ＋ 中文圓體 Zen Maru Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 吉卜力風背景（固定、cover） -->
+  <div class="bg" aria-hidden="true"></div>
+  <div class="bg-veil" aria-hidden="true"></div>
+
+  <!-- 漂浮光點（由 script.js 動態生成） -->
+  <div id="sparkles" aria-hidden="true"></div>
+
+  <!-- 背景音樂：Joss Stone - L-O-V-E -->
+  <audio id="bgm" src="Joss Stone L-O-V-E.mp3" loop preload="auto"></audio>
+
+  <!-- 音樂開關（右上角） -->
+  <button id="musicToggle" class="music-toggle" aria-label="音樂開關" hidden>♪</button>
+
+  <!-- ============================================================
+       ⓪ 密碼鎖：輸入正確密碼才能看到後面的內容
+       （密碼以 SHA-256 雜湊存放，原始碼中看不到明碼）
+       ============================================================ -->
+  <div id="lock" class="lock">
+    <div class="lock-card">
+      <p class="lock-script">For Your Eyes Only</p>
+      <h1 class="lock-title">這是專屬於妳的秘密</h1>
+      <p class="lock-hint">提示：屬於我們的那個日子（月月日日）</p>
+      <form id="lockForm" class="lock-form" autocomplete="off">
+        <input id="lockInput" type="password" inputmode="numeric" maxlength="8"
+               placeholder="••••" aria-label="請輸入密碼" autocomplete="off">
+        <button type="submit">開啟</button>
+      </form>
+      <p id="lockError" class="lock-error" hidden>好像不對喔，再想想我們的日子 ♥</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ① 首頁：信封開場
+       ============================================================ -->
+  <div id="intro" class="intro">
+    <div class="intro-inner">
+      <h1 class="intro-title">A Letter&nbsp;for&nbsp;You</h1>
+      <p class="intro-sub">獻給我最愛的妮妮</p>
+
+      <button id="envelope" class="envelope" aria-label="打開回憶">
+        <span class="env-back"></span>
+        <span class="env-letter">
+          <span class="env-letter-heart">♥</span>
+        </span>
+        <span class="env-flap"></span>
+        <span class="env-front"></span>
+        <span class="env-seal">♥</span>
+      </button>
+
+      <p class="intro-hint">— 點擊信封，打開我們的回憶 —</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ② 回憶時間軸
+       ============================================================ -->
+  <main id="story" class="story" hidden>
+
+    <!-- 開場標題 -->
+    <header class="hero reveal">
+      <p class="hero-script">Our Story</p>
+      <h1 class="hero-title">我們的七年</h1>
+      <p class="hero-sub">每一年，都想再跟妳走一遍</p>
+      <span class="hero-arrow">⌄</span>
+    </header>
+
+    <!-- ─────────── 第一年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">01</span>
+        <span class="year-script">The First Year</span>
+        <h2 class="year-title">第一年 · 心動的開始</h2>
+      </div>
+
+      <div class="love-words">
+        <p>這是我們認識的第一年，交往一個月後我跟妮妮告白，正式開始我們的情侶生涯。</p>
+        <p>我們一起去士林的銷售中心拍照，妮妮還去天文館量體重；去了動物園，跟可愛妮妮拍了很多照。</p>
+        <p>我還背了很多水，一起去陽明山爬七星山。妮妮手很巧，做的鳳梨酥很漂亮，很像店家做的。</p>
+        <p>一起去了淡水吃冰、騎腳踏車，托妮妮的福去老爺吃 buffet。碩士生涯的最後，雖然因為疫情沒有大畢典，但也在椰林大道上與妮妮拍了情侶照。</p>
+        <p>第一年我們因為剛在一起，偶爾有爭吵，但感情也越來越步上軌道——從聖誕節不敢牽手，到後面的浪漫夜晚。</p>
+        <p>總的來說，是有激情也有爭吵、還不錯的一年。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img>（src 填圖片路徑或網址）即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第一年/2988.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2989.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2990.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2991.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2992.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2993.jpg" alt="第一年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第一年/2994.jpg" alt="第一年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第二年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">02</span>
+        <span class="year-script">The Second Year</span>
+        <h2 class="year-title">第二年 · 走入日常</h2>
+      </div>
+
+      <div class="love-words">
+        <p>第二年，我找到工作，開始了社畜人生。</p>
+        <p>過年行程超滿的：晚上一起吃了 gino pizza（很普），隔天我們超早起，騎了好遠的摩托車到北投泡溫泉，還幫妮妮拍美美的入浴照、畫了漂亮情侶照；再隔天還去內湖採草莓，狗超兇，妮妮差點被咬。</p>
+        <p>生日妮妮請我吃饗饗，好吃，妮妮好瘦。春假一起去大橋頭騎腳踏車，也去貓咪咖啡廳餵可愛貓貓們。</p>
+        <p>後來我去當兵，頂著平頭與妮妮去三峽約會，也在那年買了野餐墊，開始去各種地方野餐。妮妮生日時，用我工作拿到的薪水送了 Dior 的氣墊粉餅。</p>
+        <p>適逢台灣疫情大爆發，妮妮開始會在小房間內煮飯，也開始了我們的煮飯吃播視訊。也因為有了工作，趁著一波免費的員工旅行，與妮妮兩人首次外地宜蘭過夜。</p>
+        <p>雖然這時候的我們多半還只能視訊、偶爾還是會吵架，但經過第一年，已經越來越了解妮妮的脾氣，比較會哄妮妮了。</p>
+        <p>這年我經歷了當兵、上班，我們儼然開始走入下個人生階段了。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第二年/2995.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/2996.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/2997.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/2998.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/2999.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3000.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3001.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3002.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3003.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3004.jpg" alt="第二年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第二年/3005.jpg" alt="第二年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第三年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">03</span>
+        <span class="year-script">The Third Year</span>
+        <h2 class="year-title">第三年 · 越來越好</h2>
+      </div>
+
+      <div class="love-words">
+        <p>第三年了，我們工作了一陣子，開始變有錢了。</p>
+        <p>感謝妮妮分紅請我吃的人生第一頓無菜單料理，然後還一起去吃了高級的鐵板燒犇——美味しいです。</p>
+        <p>我們也買了腳架，開始出門會帶上它拍照，更能拍情侶照了。去陽明山狂拍櫻花跟海芋。</p>
+        <p>雖然買了腳架，可是我回去看相簿，怎麼 2022 年的照片超少的……</p>
+        <p>妮妮還記得這年發生了什麼嗎？</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第三年/3319.jpg" alt="第三年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第三年/3321.jpg" alt="第三年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第三年/3322.jpg" alt="第三年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第三年/3323.jpg" alt="第三年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第三年/3324.jpg" alt="第三年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第四年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">04</span>
+        <span class="year-script">The Fourth Year</span>
+        <h2 class="year-title">第四年 · 走進彼此的家</h2>
+      </div>
+
+      <div class="love-words">
+        <p>第四年，我們開始漸漸走入彼此的家庭。</p>
+        <p>跟妮妮一起回去雅加達，踏上妮妮的故鄉，親自見到妮妮的家人們。那幾天日程蒙妮妮家人的款待，也認識了很多妮妮的朋友。雖然是用憋腳的英文跟他們溝通，但也感覺更加了解妮妮。</p>
+        <p>那年我也換了新工作，漸漸適應了新的環境，經歷了公司首次的裁員，體驗到科技業的變化。</p>
+        <p>與妮妮的關係上也有了變化——我假日會去妮妮的租屋處一起住，我們開始有很多幸福的小日常。現在想來真覺得不可思議，居然兩個人能在那小小房間生活。</p>
+        <p>年末妮妮也首次與我家人一起跨年，去日月潭看了日出。</p>
+        <p>我想今年的主軸就是「家人」吧，與你我的家人都更加地熟悉。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第四年/3325.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/3326.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_438.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_440.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_1044.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_1158.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_1484.jpg" alt="第四年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第四年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_1620.jpg" alt="第四年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第五年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">05</span>
+        <span class="year-script">The Fifth Year</span>
+        <h2 class="year-title">第五年 · 簡單開心的日常</h2>
+      </div>
+
+      <div class="love-words">
+        <p>第五年，與妮妮週末的同居已成為日常。我們往人生下階段做考量，開始看房。</p>
+        <p>規劃一起出國旅遊，經歷了我外婆過世——謝謝妮妮延期我們的東京行。</p>
+        <p>妮妮是超棒旅伴，規劃得超好，我人只要負責出現跟拿東西就好。東京行每天都很充實有趣。</p>
+        <p>漸漸地，與妮妮簡單開心的日常，成為我們的主基調。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第五年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_424.jpg" alt="第五年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第五年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_592.jpg" alt="第五年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第五年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_667.jpg" alt="第五年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第五年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_768.jpg" alt="第五年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第五年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_798.jpg" alt="第五年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第六年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">06</span>
+        <span class="year-script">The Sixth Year</span>
+        <h2 class="year-title">第六年 · 風雨同行</h2>
+      </div>
+
+      <div class="love-words">
+        <p>今年的上下半年，完全的兩樣情。</p>
+        <p>年初我們一起過完了在一起後的第六個生日，還去了沖繩嘗試自駕，回來後一起租了房子，準備開始同居生涯。</p>
+        <p>就在一切事情都很美好時，妮妮生病了。在一個平常的上班日早晨，起初以為只是肌肉拉傷，完全沒想到會是後續一連串看診的開端。這一年我們不斷跑榮總，面對無止盡的檢查與回診，原本以為人生規劃好像也突然停滯了。</p>
+        <p>但逆境驅使人成長。我從每次的回診與送妮妮上班的日子中越來越會開車，每次的看診也讓我對妮妮的身體狀況更加了解。我們開始知曉那未知的疾病；雖然暫時沒出國，但也規劃了台東的自駕行，好像停滯的齒輪又漸漸轉動起來。</p>
+        <p>這年我開始知道妮妮對我的不同與重要。雖然這年真的很辛苦，但也因為有今年，我們各方面都有所大成長。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第六年/71.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/558.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/894.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/3332.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/3333.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/3335.jpg" alt="第六年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第六年/5980594e-aa49-4a6f-bd02-84d8abe2630c-1_all_184.jpg" alt="第六年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ─────────── 第七年 ─────────── -->
+    <section class="year-card reveal">
+      <div class="year-head">
+        <span class="year-num">07</span>
+        <span class="year-script">The Seventh Year</span>
+        <h2 class="year-title">第七年 · 更堅強的我們</h2>
+      </div>
+
+      <div class="love-words">
+        <p>今年也是 tough 的一年。年初吃了股癌推薦的日本料理，家族旅遊還去採超甜的草莓。</p>
+        <p>結果後來回診卻又來了晴天霹靂。好家在有上次的經驗，我們這次相對老熟了，日子照樣過。</p>
+        <p>我們開始頻繁地看房，也買到我們人生的第一間房子——進去的當下就覺得，可能就是這間了。突然的買房，也強迫我們推進到人生的下個階段。</p>
+        <p>當一切漸漸好轉時，妮妮住院了，好險只是虛驚一場。這一路上我感覺我們真的很幸運，總在危機的時候，能遇到給我們幫助的人。</p>
+        <p>開完刀後，可以感覺到妮妮氣色真的比以前好了，嘴唇都很紅潤。</p>
+        <p>雖然這兩年遇到很多困難，但我們也更加堅強——不只是人，也包括我們的感情。也因此，讓我開始思考：或許，我們能再進一步了。</p>
+      </div>
+
+      <!-- 照片輪播：要換照片，直接增減下面的 <img> 即可 -->
+      <div class="carousel">
+        <button class="car-btn prev" aria-label="上一張">‹</button>
+        <div class="car-track">
+          <div class="slide"><img src="第七年/1908.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/1967.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/2242.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/2642.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/2831.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/3160.jpg" alt="第七年回憶" loading="lazy"></div>
+          <div class="slide"><img src="第七年/3260.jpg" alt="第七年回憶" loading="lazy"></div>
+        </div>
+        <button class="car-btn next" aria-label="下一張">›</button>
+        <div class="car-dots"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ③ 求婚大哉問
+         ============================================================ -->
+    <section id="proposal" class="proposal reveal">
+      <p class="proposal-script">And now…</p>
+      <!-- 未來/loveWords.txt 的內容 -->
+      <h2 class="proposal-question">我願意在老的時候，牽著妮妮的手一起逛街。</h2>
+      <p class="proposal-ask">妮妮，願意陪我走下去嗎？</p>
+
+      <div class="proposal-btns">
+        <button id="yesBtn" class="btn-yes">我願意 💍</button>
+        <button id="noBtn" class="btn-no">再想想</button>
+      </div>
+    </section>
+
+    <footer class="story-footer">
+      <p class="footer-script">with all my love</p>
+    </footer>
+  </main>
+
+  <!-- ============================================================
+       ④ 最終告白字卡（點「我願意」後出現）
+       ============================================================ -->
+  <div id="finalModal" class="final-modal" hidden>
+    <div class="final-card">
+      <!-- 未來資料夾裡的圖片 -->
+      <img class="final-img" src="未來/Gemini_Generated_Image_bhcgdubhcgdubhcg.png" alt="我們的未來">
+      <p class="final-script">She said YES!</p>
+      <h2 class="final-title">謝謝妳願意，把餘生交給我</h2>
+      <p class="final-text">
+        從第一年到第七年，謝謝妳陪我走過每一段路。<br>
+        接下來的每一年，換我牽著妳，一直走到我們都白了頭。
+      </p>
+      <p class="final-sign">永遠愛妳的我 ♥</p>
+
+      <!-- 回顧按鈕：關閉告白卡，回到回憶時間軸重新瀏覽 -->
+      <button id="reviewBtn" class="btn-review">↺ 回顧我們的回憶</button>
+    </div>
+  </div>
+
+  <!-- 照片點擊放大用的燈箱 -->
+  <div id="lightbox" class="lightbox" hidden>
+    <img src="" alt="放大照片">
+  </div>
+
+  <script src="vendor/confetti.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
